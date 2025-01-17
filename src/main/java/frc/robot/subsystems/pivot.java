@@ -5,33 +5,33 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.config.SparkMaxConfig;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-/** Add your docs here. */
 public class pivot extends SubsystemBase {
+  SparkMax pivot_motor;
+  /** Creates a new pivot. */
+  public pivot() {
+    pivot_motor = new SparkMax(0, null);
+    SparkMaxConfig pivot_config = new SparkMaxConfig();
 
-    SparkMax pivot_motor;
+    pivot_config
+      .idleMode(null )
+      .inverted(false);
+   pivot_motor.configure(pivot_config, null, null);
 
-    public pivot (){
-        pivot_motor = new SparkMax(1,MotorType.kBrushless);
+  }
 
-    }
+  @Override
+  public void periodic() {
+    // This method will be called once per scheduler run
+  }
+  public void pivot_thing(){
 
-    public void pivot_forward(){
-        pivot_motor.set(0);
 
-    }
 
-    public void pivot_back(){
-        pivot_motor.set(0);
-    }
+  }
 
-    public void pivot_stop(){
-        pivot_motor.set(0);
-    }
 
 }
-    
-

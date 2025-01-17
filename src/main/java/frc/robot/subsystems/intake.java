@@ -4,5 +4,23 @@
 
 package frc.robot.subsystems;
 
-/** Add your docs here. */
-public class intake {}
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+
+public class intake extends SubsystemBase {
+  /** Creates a new intake. */
+  SparkMax intake; 
+
+  public intake() {
+    intake = new SparkMax(9, MotorType.kBrushless);
+
+  }
+
+  @Override  
+  public void periodic() {
+    // This method will be called once per scheduler run
+  }
+}
