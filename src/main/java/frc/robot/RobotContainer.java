@@ -7,11 +7,20 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.drive_command;
+import frc.robot.commands.intake_command;
+import frc.robot.commands.pivot_command;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.drivetrain;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.climb_command;
+import frc.robot.commands.intake_command;
+import frc.robot.commands.pivot_command;
+import frc.robot.commands.shooter_command;
 
 
 /**
@@ -23,8 +32,18 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  private final climb_command climbest = new climb_command();
+  private final intake_command intakest = new intake_command();
+  private final pivot_command pivotst = new pivot_command();
+  private final shooter_command shootist = new shooter_command();
+  private final drivetrain drive = new drivetrain();
   public static Joystick left_con = new Joystick(Constants.left_conid);
   public static Joystick right_con = new Joystick(Constants.right_conid);  
+
+  public static JoystickButton climber = new JoystickButton(left_con, Constants.button1);
+  public static JoystickButton intake = new JoystickButton(left_con, Constants.button2);
+  public static JoystickButton pivButton = new JoystickButton(left_con, Constants.button3);
+  public static JoystickButton shooter_button = new JoystickButton(left_con, Constants.button4);
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
@@ -34,6 +53,7 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
+    drive.setDefaultCommand(new drive_command(drive,left_con,right_con));
     configureBindings();
   }
 
@@ -50,6 +70,10 @@ public class RobotContainer {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     new Trigger(m_exampleSubsystem::exampleCondition)
         .onTrue(new ExampleCommand(m_exampleSubsystem));
+    climber.onTrue(climbest);
+    intake.onTrue(intakest);
+    pivButton.onTrue(pivotst);
+    shooter_button.onTrue(shootist);
     
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,

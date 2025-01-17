@@ -5,8 +5,11 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -15,6 +18,7 @@ public class climb extends SubsystemBase {
   /** Creates a new climb. */
   SparkMax climb_left;
   SparkMax climb_right;
+  SparkMaxConfig climber;
   public climb() {
 
     climb_left = new SparkMax(Constants.climb_one,MotorType.kBrushless);
@@ -22,11 +26,11 @@ public class climb extends SubsystemBase {
     SparkMaxConfig climber = new SparkMaxConfig();
 
     climber 
-      .idleMode(null)
+      .idleMode(IdleMode.kBrake)
       .inverted(false);
 
-   climb_left.configure(climber, null, null);
-   climb_right.configure(climber, null, null);
+   climb_left.configure(climber,ResetMode.kResetSafeParameters,PersistMode.kPersistParameters);
+   climb_right.configure(climber,ResetMode.kResetSafeParameters,PersistMode.kPersistParameters);
 
   }
 

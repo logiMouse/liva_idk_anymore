@@ -13,17 +13,17 @@ import frc.robot.RobotContainer;
 public class drive_command extends Command {
   /** Creates a new drive_command. */
   drivetrain drive;
-  Joystick con_left;
-  Joystick con_right;
+  Joystick left_con;
+  Joystick right_con;
 
-  public drive_command() {
+  public drive_command(drivetrain drive, Joystick left_con, Joystick right_con){
     // Use addRequirements() here to declare subsystem dependencies.
     this.drive = drive;
-    this.con_left= new Joystick(0);
-    this.con_right = new Joystick(0);
+    this.right_con = right_con;
+    this.left_con = left_con;
     
 
-    addRequirements(drive);
+    addRequirements(this.drive);
   }
 
   // Called when the command is initially scheduled.
@@ -33,13 +33,7 @@ public class drive_command extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double con_left;
-    double con_right;
-    con_left = RobotContainer.left_con.getY();
-   con_right = RobotContainer.left_con.getX();
-
-    drive.arcade(con_left,con_right);
-
+this.drive.arcade(left_con,right_con);
   }
 
   // Called once the command ends or is interrupted.

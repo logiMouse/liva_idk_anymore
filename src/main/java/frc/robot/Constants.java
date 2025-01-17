@@ -25,13 +25,27 @@ public final class Constants {
   // climb speed 
   public static final int climb_speed = 1;
   // pivot di 
+  public static final int pivot_id = 10;
   // pivot speed
+  public static final int pivot_speed = 1;
   // intake 
   public static final int intake_id = 7;
-  // shooter 
+  public static final int intake_speed = 1;
+  // shooter id 
+  public static final int shooter_id =9;
+  // shooter speeds 
+  public static final int speed = 1;
+
   // joy ids
   public static final int left_conid = 1;
   public static final int right_conid = 2;
+
+  // buttons 
+  public static final int button1 = 1;
+  public static final int button2 = 2;
+  public static final int button3 = 3;
+  public static final int button4 = 4;
+  public static final int button5 = 5;
 
 
 
