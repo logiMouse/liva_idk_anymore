@@ -11,16 +11,22 @@ import frc.robot.commands.drive_command;
 import frc.robot.commands.intake_command;
 import frc.robot.commands.pivot_command;
 import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.drivetrain;
+import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Pivot;
+import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.Climber;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.climb_command;
-import frc.robot.commands.intake_command;
-import frc.robot.commands.pivot_command;
 import frc.robot.commands.shooter_command;
+
+
+
 
 
 /**
@@ -32,17 +38,18 @@ import frc.robot.commands.shooter_command;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-  private final climb_command climbest = new climb_command();
-  private final intake_command intakest = new intake_command();
-  private final pivot_command pivotst = new pivot_command();
-  private final shooter_command shootist = new shooter_command();
-  private final drivetrain drive = new drivetrain();
+  private final Climber climb_sub = new Climber();
+  private final Intake intake_sub = new Intake();
+  private final Shooter shoot_sub = new Shooter();
+  private final Pivot piv_sub = new Pivot();
+  private final Drivetrain drive = new Drivetrain();
   public static Joystick left_con = new Joystick(Constants.left_conid);
   public static Joystick right_con = new Joystick(Constants.right_conid);  
 
-  public static JoystickButton climber = new JoystickButton(left_con, Constants.button1);
+  public static JoystickButton climbern = new JoystickButton(left_con, Constants.button1);
   public static JoystickButton intake = new JoystickButton(left_con, Constants.button2);
   public static JoystickButton pivButton = new JoystickButton(left_con, Constants.button3);
+  public static JoystickButton pivButton_30 = new JoystickButton(left_con, Constants.button5);
   public static JoystickButton shooter_button = new JoystickButton(left_con, Constants.button4);
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -70,10 +77,12 @@ public class RobotContainer {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     new Trigger(m_exampleSubsystem::exampleCondition)
         .onTrue(new ExampleCommand(m_exampleSubsystem));
-    climber.onTrue(climbest);
-    intake.onTrue(intakest);
-    pivButton.onTrue(pivotst);
-    shooter_button.onTrue(shootist);
+  
+    climbern.whileTrue(new climb_command(climb_sub));
+    intake.whileTrue(new intake_command(intake_sub));
+    pivButton.whileTrue(new pivot_command(piv_sub, Constants.angle_1));
+    pivButton_30.whileTrue(new pivot_command(piv_sub, Constants.angle_2));
+    shooter_button.whileTrue(new shooter_command(shoot_sub));
     
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
